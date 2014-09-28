@@ -30,21 +30,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.0.1\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.0.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
-    <Reference Include="MySql.Data">
-      <HintPath>..\packages\MySql.Data.6.9.3\lib\net45\MySql.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="MySql.Data.Entity.EF6">
-      <HintPath>..\packages\MySql.Data.Entity.6.9.3\lib\net45\MySql.Data.Entity.EF6.dll</HintPath>
+    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
@@ -54,8 +47,41 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="grupa.cs">
+      <DependentUpon>TorteDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="klijent.cs">
+      <DependentUpon>TorteDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="MysqlDataAccess.cs" />
+    <Compile Include="porudzbine.cs">
+      <DependentUpon>TorteDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="proizvod.cs">
+      <DependentUpon>TorteDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="slike.cs">
+      <DependentUpon>TorteDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="slikeporudzbine.cs">
+      <DependentUpon>TorteDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TorteDb.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TorteDb.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TorteDb.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TorteDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TorteDb.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TorteDb.edmx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TorteNS.Shared\TorteNS.Shared.csproj">
@@ -64,8 +90,30 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <EntityDeploy Include="TorteDb.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>TorteDb.Designer.cs</LastGenOutput>
+    </EntityDeploy>
     <None Include="packages.config" />
+    <None Include="TorteDb.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>TorteDb.edmx</DependentUpon>
+      <LastGenOutput>TorteDb.Context.cs</LastGenOutput>
+    </None>
+    <None Include="TorteDb.edmx.diagram">
+      <DependentUpon>TorteDb.edmx</DependentUpon>
+    </None>
+    <None Include="TorteDb.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>TorteDb.edmx</DependentUpon>
+      <LastGenOutput>TorteDb.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
