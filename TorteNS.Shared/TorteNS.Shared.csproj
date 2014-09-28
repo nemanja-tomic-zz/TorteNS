@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C41F63D6-74DA-4728-817C-3F33E69367AF}</ProjectGuid>
+    <ProjectGuid>{AC5A0BA1-8E60-43AE-8ACD-55D5AA253F18}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TorteNS.BL</RootNamespace>
-    <AssemblyName>TorteNS.BL</AssemblyName>
+    <RootNamespace>TorteNS.Shared</RootNamespace>
+    <AssemblyName>TorteNS.Shared</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -39,14 +39,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DjokaKurirchina.cs" />
+    <Compile Include="IDataAccess.cs" />
+    <Compile Include="IKurirchina.cs" />
+    <Compile Include="Models\Client.cs" />
+    <Compile Include="Models\ClientStatus.cs" />
+    <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\TorteNS.Shared\TorteNS.Shared.csproj">
-      <Project>{AC5A0BA1-8E60-43AE-8ACD-55D5AA253F18}</Project>
-      <Name>TorteNS.Shared</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

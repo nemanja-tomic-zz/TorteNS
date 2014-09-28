@@ -1,0 +1,321 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="TorteDb.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="grupa">
+          <Key>
+            <PropertyRef Name="idGrupe" />
+          </Key>
+          <Property Name="idGrupe" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="naziv" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="klijent">
+          <Key>
+            <PropertyRef Name="idKlijenta" />
+          </Key>
+          <Property Name="idKlijenta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ime" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="prezime" Type="varchar" MaxLength="50" />
+          <Property Name="telefon" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="telefon2" Type="varchar" MaxLength="100" />
+          <Property Name="email" Type="varchar" MaxLength="100" />
+          <Property Name="fblink" Type="varchar" MaxLength="100" />
+          <Property Name="napomene" Type="text" />
+          <Property Name="adresa" Type="text" />
+          <Property Name="rating" Type="float" />
+          <Property Name="status" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="porudzbine">
+          <Key>
+            <PropertyRef Name="idPorudzbine" />
+          </Key>
+          <Property Name="idPorudzbine" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="napomena" Type="text" Nullable="false" />
+          <Property Name="datumPorucivanja" Type="date" Nullable="false" />
+          <Property Name="datumTransakcije" Type="date" Nullable="false" />
+          <Property Name="idKlijenta" Type="int" Nullable="false" />
+          <Property Name="idProizvoda" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="proizvod">
+          <Key>
+            <PropertyRef Name="idProizvoda" />
+          </Key>
+          <Property Name="naziv" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="cena" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="tezina" Type="varchar" MaxLength="20" />
+          <Property Name="opis" Type="text" Nullable="false" />
+          <Property Name="kolicina" Type="varchar" MaxLength="50" />
+          <Property Name="idGrupe" Type="int" Nullable="false" />
+          <Property Name="idProizvoda" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="danispremanja" Type="int" />
+        </EntityType>
+        <EntityType Name="slike">
+          <Key>
+            <PropertyRef Name="idSlike" />
+          </Key>
+          <Property Name="idSlike" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="naziv" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="velicina" Type="int" Nullable="false" />
+          <Property Name="tip" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="putanja" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="slikeporudzbine">
+          <Key>
+            <PropertyRef Name="idSlike" />
+            <PropertyRef Name="idPorudzbine" />
+          </Key>
+          <Property Name="idSlike" Type="int" Nullable="false" />
+          <Property Name="idPorudzbine" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="slikeproizvod">
+          <Key>
+            <PropertyRef Name="idSlike" />
+            <PropertyRef Name="idProizvoda" />
+          </Key>
+          <Property Name="idSlike" Type="int" Nullable="false" />
+          <Property Name="idProizvoda" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="slikeproizvod_ibfk_3">
+          <End Role="slike" Type="Self.slike" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="slikeproizvod" Type="Self.slikeproizvod" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="slike">
+              <PropertyRef Name="idSlike" />
+            </Principal>
+            <Dependent Role="slikeproizvod">
+              <PropertyRef Name="idSlike" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="slikeproizvod_ibfk_4">
+          <End Role="proizvod" Type="Self.proizvod" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="slikeproizvod" Type="Self.slikeproizvod" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="proizvod">
+              <PropertyRef Name="idProizvoda" />
+            </Principal>
+            <Dependent Role="slikeproizvod">
+              <PropertyRef Name="idProizvoda" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TorteDbStoreContainer">
+          <EntitySet Name="grupa" EntityType="Self.grupa" Schema="db_9ac641_tortedb" store:Type="Tables" />
+          <EntitySet Name="klijent" EntityType="Self.klijent" Schema="db_9ac641_tortedb" store:Type="Tables" />
+          <EntitySet Name="porudzbine" EntityType="Self.porudzbine" Schema="db_9ac641_tortedb" store:Type="Tables" />
+          <EntitySet Name="proizvod" EntityType="Self.proizvod" Schema="db_9ac641_tortedb" store:Type="Tables" />
+          <EntitySet Name="slike" EntityType="Self.slike" Schema="db_9ac641_tortedb" store:Type="Tables" />
+          <EntitySet Name="slikeporudzbine" EntityType="Self.slikeporudzbine" Schema="db_9ac641_tortedb" store:Type="Tables" />
+          <EntitySet Name="slikeproizvod" EntityType="Self.slikeproizvod" Schema="db_9ac641_tortedb" store:Type="Tables" />
+          <AssociationSet Name="slikeproizvod_ibfk_3" Association="Self.slikeproizvod_ibfk_3">
+            <End Role="slike" EntitySet="slike" />
+            <End Role="slikeproizvod" EntitySet="slikeproizvod" />
+          </AssociationSet>
+          <AssociationSet Name="slikeproizvod_ibfk_4" Association="Self.slikeproizvod_ibfk_4">
+            <End Role="proizvod" EntitySet="proizvod" />
+            <End Role="slikeproizvod" EntitySet="slikeproizvod" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TorteDb" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="grupa">
+          <Key>
+            <PropertyRef Name="idGrupe" />
+          </Key>
+          <Property Name="idGrupe" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="naziv" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="klijent">
+          <Key>
+            <PropertyRef Name="idKlijenta" />
+          </Key>
+          <Property Name="idKlijenta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="prezime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="telefon" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="telefon2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="fblink" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="napomene" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="adresa" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="rating" Type="Single" />
+          <Property Name="status" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="porudzbine">
+          <Key>
+            <PropertyRef Name="idPorudzbine" />
+          </Key>
+          <Property Name="idPorudzbine" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="napomena" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="datumPorucivanja" Type="DateTime" Nullable="false" />
+          <Property Name="datumTransakcije" Type="DateTime" Nullable="false" />
+          <Property Name="idKlijenta" Type="Int32" Nullable="false" />
+          <Property Name="idProizvoda" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="proizvod">
+          <Key>
+            <PropertyRef Name="idProizvoda" />
+          </Key>
+          <Property Name="naziv" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cena" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tezina" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="opis" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="kolicina" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="idGrupe" Type="Int32" Nullable="false" />
+          <Property Name="idProizvoda" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="danispremanja" Type="Int32" />
+          <NavigationProperty Name="slikes" Relationship="Self.slikeproizvod" FromRole="proizvod" ToRole="slike" />
+        </EntityType>
+        <EntityType Name="slike">
+          <Key>
+            <PropertyRef Name="idSlike" />
+          </Key>
+          <Property Name="idSlike" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="naziv" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="velicina" Type="Int32" Nullable="false" />
+          <Property Name="tip" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="putanja" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="proizvods" Relationship="Self.slikeproizvod" FromRole="slike" ToRole="proizvod" />
+        </EntityType>
+        <EntityType Name="slikeporudzbine">
+          <Key>
+            <PropertyRef Name="idSlike" />
+            <PropertyRef Name="idPorudzbine" />
+          </Key>
+          <Property Name="idSlike" Type="Int32" Nullable="false" />
+          <Property Name="idPorudzbine" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="slikeproizvod">
+          <End Role="slike" Type="Self.slike" Multiplicity="*" />
+          <End Role="proizvod" Type="Self.proizvod" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="TorteDatabase" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="grupas" EntityType="Self.grupa" />
+          <EntitySet Name="klijents" EntityType="Self.klijent" />
+          <EntitySet Name="porudzbines" EntityType="Self.porudzbine" />
+          <EntitySet Name="proizvods" EntityType="Self.proizvod" />
+          <EntitySet Name="slikes" EntityType="Self.slike" />
+          <EntitySet Name="slikeporudzbines" EntityType="Self.slikeporudzbine" />
+          <AssociationSet Name="slikeproizvod" Association="Self.slikeproizvod">
+            <End Role="slike" EntitySet="slikes" />
+            <End Role="proizvod" EntitySet="proizvods" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TorteDbStoreContainer" CdmEntityContainer="TorteDatabase">
+          <EntitySetMapping Name="grupas">
+            <EntityTypeMapping TypeName="TorteDb.grupa">
+              <MappingFragment StoreEntitySet="grupa">
+                <ScalarProperty Name="idGrupe" ColumnName="idGrupe" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="klijents">
+            <EntityTypeMapping TypeName="TorteDb.klijent">
+              <MappingFragment StoreEntitySet="klijent">
+                <ScalarProperty Name="idKlijenta" ColumnName="idKlijenta" />
+                <ScalarProperty Name="ime" ColumnName="ime" />
+                <ScalarProperty Name="prezime" ColumnName="prezime" />
+                <ScalarProperty Name="telefon" ColumnName="telefon" />
+                <ScalarProperty Name="telefon2" ColumnName="telefon2" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="fblink" ColumnName="fblink" />
+                <ScalarProperty Name="napomene" ColumnName="napomene" />
+                <ScalarProperty Name="adresa" ColumnName="adresa" />
+                <ScalarProperty Name="rating" ColumnName="rating" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="porudzbines">
+            <EntityTypeMapping TypeName="TorteDb.porudzbine">
+              <MappingFragment StoreEntitySet="porudzbine">
+                <ScalarProperty Name="idPorudzbine" ColumnName="idPorudzbine" />
+                <ScalarProperty Name="napomena" ColumnName="napomena" />
+                <ScalarProperty Name="datumPorucivanja" ColumnName="datumPorucivanja" />
+                <ScalarProperty Name="datumTransakcije" ColumnName="datumTransakcije" />
+                <ScalarProperty Name="idKlijenta" ColumnName="idKlijenta" />
+                <ScalarProperty Name="idProizvoda" ColumnName="idProizvoda" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="proizvods">
+            <EntityTypeMapping TypeName="TorteDb.proizvod">
+              <MappingFragment StoreEntitySet="proizvod">
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="cena" ColumnName="cena" />
+                <ScalarProperty Name="tezina" ColumnName="tezina" />
+                <ScalarProperty Name="opis" ColumnName="opis" />
+                <ScalarProperty Name="kolicina" ColumnName="kolicina" />
+                <ScalarProperty Name="idGrupe" ColumnName="idGrupe" />
+                <ScalarProperty Name="idProizvoda" ColumnName="idProizvoda" />
+                <ScalarProperty Name="danispremanja" ColumnName="danispremanja" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="slikes">
+            <EntityTypeMapping TypeName="TorteDb.slike">
+              <MappingFragment StoreEntitySet="slike">
+                <ScalarProperty Name="idSlike" ColumnName="idSlike" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="velicina" ColumnName="velicina" />
+                <ScalarProperty Name="tip" ColumnName="tip" />
+                <ScalarProperty Name="putanja" ColumnName="putanja" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="slikeporudzbines">
+            <EntityTypeMapping TypeName="TorteDb.slikeporudzbine">
+              <MappingFragment StoreEntitySet="slikeporudzbine">
+                <ScalarProperty Name="idSlike" ColumnName="idSlike" />
+                <ScalarProperty Name="idPorudzbine" ColumnName="idPorudzbine" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="slikeproizvod" TypeName="TorteDb.slikeproizvod" StoreEntitySet="slikeproizvod">
+            <EndProperty Name="slike">
+              <ScalarProperty Name="idSlike" ColumnName="idSlike" />
+            </EndProperty>
+            <EndProperty Name="proizvod">
+              <ScalarProperty Name="idProizvoda" ColumnName="idProizvoda" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
